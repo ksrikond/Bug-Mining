@@ -1,0 +1,59 @@
+appName: "HSD Mining & Analysis"
+logLevel: INFO
+
+extraction:
+  url:
+  headers:
+    Content-Type: application/json
+  params:
+    max_results: 10000
+  queryPayload: PAYLOAD_BY_RELEASE_SPRSP_CHA
+  output:
+    filename: hsd_data_by_release_sprsp_cha
+    encode: True
+
+main:
+  rawDataFile: hsd_data_by_release_sprsp_cha.pickle
+  namedEntityRecognizer: stanford-ner
+  algorithm: co-occurrence
+  columnsToProcess:
+    - id
+    - title
+    - description
+#    - comments
+    - por
+    - ccb_template
+    - owner
+    - notify
+    - submitted_date
+  columnsToPreprocess:
+    - title
+    - description
+#    - comments
+    - por
+    - ccb_template
+  output:
+    tfIdfFile: tf_idf_vectors_by_release_sprsp_cha_all_v1.csv
+    featureFile: features_tf_idf_by_release_sprsp_cha_all_v1.csv
+    wordEmbeddingModelFile:
+      co-occurrence: co_occurrence_matrix_by_release_sprsp_cha_all_v1.pickle
+      word2vec: hsd_word2vec_by_release_sprsp_reason_notin_not_a_defect_merged_filed_by_mistake_tag_security.bin
+    wordClustersFile:
+      co-occurrence: co_occurrence_word_clusters.txt
+      word2vec: word2vec_word_clusters.txt
+
+dashboard:
+  input:
+    rawDataFile: hsd_data_by_release_sprsp_cha.pickle
+    tfIdfFile: tf_idf_vectors_by_release_sprsp_cha_all_v1.csv
+    wordEmbeddingModelFile:
+      co-occurrence: co_occurrence_matrix_by_release_sprsp_cha_all_v1.pickle
+      word2vec: hsd_word2vec_by_release_sprsp_reason_notin_not_a_defect_merged_filed_by_mistake_tag_security.bin
+  algorithm: co-occurrence
+  stopwordsAndExceptions: stopwords_and_exceptions.json
+  namedEntityRecognizer: stanford-ner
+  output:
+    wordClustersFile:
+      co-occurrence: co_occurrence_word_clusters.txt
+      word2vec: word2vec_word_clusters.txt
+    tableDataFile: data.csv

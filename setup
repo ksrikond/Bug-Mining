@@ -1,0 +1,7 @@
+conda install --yes --file requirements.text
+#
+# if a package installation fails,
+# all other packages will not be installed.
+# Below line handles that issue
+# while read requirement: do conda install --yes $requirement || pip install $requirement; done < requirements.txt 2>installation_error.log
+while read requirement; do conda install --yes $requirement; done < requirements.txt 2>installation_error.log

@@ -1,0 +1,24 @@
+########### Requirements without version specifications ###########
+pandas
+numpy
+matplotlib
+scikit-learn
+requests
+urllib3
+requests-kerberos
+bs4
+gensim
+wordcloud
+plotly
+networkx
+nltk
+spacy
+gunicorn
+dash
+dash-html-components
+dash-core-components
+dash-bootstrap-components
+dash-table
+pyyaml
+
+########### Requirements with specific versions ###########
